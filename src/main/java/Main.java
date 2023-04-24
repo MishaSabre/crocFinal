@@ -9,9 +9,16 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Стартовый класс.
+ */
 public class Main {
 
     public static void main(String[] args) {
+        /*
+         * Создаем различные переменные для дальнейшей работы программы
+         * в них мы будем вносить данные из файлов формата JSON
+         */
         ArrayList<Seller> sellers = new ArrayList<>();
         sellers.add(new Seller(1, "kuk","kuk"));
         ArrayList<Product> products = new ArrayList<>();
@@ -22,33 +29,56 @@ public class Main {
         sales.add(new Sale(1,1,1, 1,new Date(1,1,1)));
         ArrayList<ProductCell> productCells = new ArrayList<>();
 
+        /*
+          Задаем пути к файлам JSON
+         */
         String path = "src/main/resources/input/";
         File inputSellers = new File(path + "sellers.json");
         File inputProducts = new File(path + "products.json");
         File inputAvailabilities = new File(path + "products-sellers.json");
         File inputSales = new File(path + "sales.json");
 
+
+        /*
+        Считываем данные из JSON файлов и заносим их в переменные
+         */
         readJson(inputSellers, sellers);
         readJson(inputProducts, products);
         readJson(inputAvailabilities, availabilities);
+        readJson(inputSales, sales);
 
+        /*
+        Методы, работа которого описанна ниже
+         */
         maxProducts(products,availabilities,productCells, sellers);
 
         String fileName = "src/main/resources/output/products.xml";
 
         try {
+            writeSellerProduct(productCells, fileName);
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
 
+        fileName = "src/main/resources/output/dates.xml";
 
-            writeToXMLusingJDOM(productCells, fileName);
+        ArrayList<Sale> sales1 = dataCounter(sales);
+
+        try {
+            writeSale(sales1, fileName);
         }catch (IOException ex){
             ex.printStackTrace();
         }
 
 
-
     }
 
-    public static void readJson(File file, ArrayList arrayList){
+    /*
+    Метод для демаршализации данных из JSON
+    если первый эллемент в arrayList соотвествует определнному классу,
+    то мы удаляем его и построчно считываем данные из файла
+     */
+    private static void readJson(File file, ArrayList arrayList){
         try {
 
             FileReader fr = new FileReader(file);
@@ -87,7 +117,13 @@ public class Main {
         }
     }
 
-    public static void maxProducts(ArrayList<Product> xProducts, ArrayList<Availability> yAvailabilities, ArrayList<ProductCell> zProductCell, ArrayList<Seller> sellers){
+    /*
+    Метод для поиска наличия максимального количества товара у продавца
+    для каждого товара мы ищем соответствующий в списке с расспределением товаров у продавцов
+    и проходим по всем списку в поисках максимального, если ни один продавец не имеет данного товара,
+    то count = 0, а имя и фамилия продавца равны "-"
+     */
+    private static void maxProducts(ArrayList<Product> xProducts, ArrayList<Availability> yAvailabilities, ArrayList<ProductCell> zProductCell, ArrayList<Seller> sellers){
 
         for (Product i : xProducts){
             Seller seller = null;
@@ -98,7 +134,7 @@ public class Main {
                     for (Seller k : sellers) {
                         if( k.getId() == j.getIdSeller() ) {
                             seller = k;
-                            System.out.println(seller);
+
                         }
                     }
 
@@ -111,7 +147,10 @@ public class Main {
 
     }
 
-    private static void writeToXMLusingJDOM(ArrayList<ProductCell> productCells, String fileName) throws IOException {
+    /*
+    Метод для маршалинга в формат XML, просто берем наши объекты из массива и постепенно вносим их в файл
+     */
+    private static void writeSellerProduct(ArrayList<ProductCell> productCells, String fileName) throws IOException {
         Document doc = new Document();
         // создаем корневой элемент с пространством имен
         doc.setRootElement(new Element("Products",
@@ -135,7 +174,54 @@ public class Main {
         xmlWriter.output(doc, new FileOutputStream(fileName));
     }
 
+    /*
+    Метод для маршалинга в формат XML, просто берем наши объекты из массива и постепенно вносим их в файл
+     */
+    private static void writeSale(ArrayList<Sale> sales, String fileName) throws IOException {
+        Document doc = new Document();
+        // создаем корневой элемент с пространством имен
+        doc.setRootElement(new Element("Products",
+                Namespace.getNamespace("")));
+        // формируем JDOM документ из объектов Student
+        for (Sale sale : sales) {
+            Element studentElement = new Element("Date",
+                    Namespace.getNamespace(""));
+            studentElement.setAttribute("date", String.valueOf(sale.getDate()));
+            studentElement.addContent(new Element("count",
+                    Namespace.getNamespace("")).setText(String.valueOf(sale.getCount())));
 
+            doc.getRootElement().addContent(studentElement);
+        }
+        // Документ JDOM сформирован и готов к записи в файл
+        XMLOutputter xmlWriter = new XMLOutputter(Format.getPrettyFormat());
+        // сохнаряем в файл
+        xmlWriter.output(doc, new FileOutputStream(fileName));
+    }
+
+    /*
+    Метод для подсчета того, сколько в определенный день было всего проданно товаров
+     */
+    private static ArrayList<Sale> dataCounter(ArrayList<Sale> arrayList){
+        ArrayList<Sale> output = new ArrayList<>();
+
+        for(Sale j : arrayList){
+            boolean flag = false;
+            for (Sale k : output){
+                if(j.getDate().equals(k.getDate())){
+                    flag = true;
+
+                    k.setCount(k.getCount() + j.getCount());
+
+                }
+            }
+            if(!flag){
+                output.add(j);
+            }
+        }
+
+
+        return output;
+    }
 
 
 }

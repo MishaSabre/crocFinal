@@ -1,3 +1,8 @@
+/**
+ * Класс описывающий сущность "товар"
+ */
+
+
 public class Product {
     private long id;
     private String name;

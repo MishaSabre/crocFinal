@@ -1,3 +1,7 @@
+/**
+ * Класс описывающий сущность "продавец"
+ */
+
 public class Seller {
     private long id;
     private String surname;

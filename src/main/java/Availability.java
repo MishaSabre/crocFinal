@@ -1,3 +1,7 @@
+/**
+ * Класс описывающий сущность, которая содержит данные о том, какик товары, имеет определенный продавец
+ */
+
 public class Availability {
     private long idSeller;
     private long idProduct;

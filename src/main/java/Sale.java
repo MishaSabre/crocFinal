@@ -1,5 +1,7 @@
 import java.util.Date;
-
+/**
+ * Класс описывающий сущность "дата продажи"
+ */
 public class Sale {
     private long id;
     private long idSeller;
@@ -53,5 +55,10 @@ public class Sale {
 
     public void setIdSeller(long idSeller) {
         this.idSeller = idSeller;
+    }
+
+    @Override
+    public String toString(){
+        return getCount() + " " + getDate();
     }
 }
