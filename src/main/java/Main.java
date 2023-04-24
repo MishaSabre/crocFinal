@@ -180,7 +180,7 @@ public class Main {
     private static void writeSale(ArrayList<Sale> sales, String fileName) throws IOException {
         Document doc = new Document();
         // создаем корневой элемент с пространством имен
-        doc.setRootElement(new Element("Products",
+        doc.setRootElement(new Element("Dates",
                 Namespace.getNamespace("")));
         // формируем JDOM документ из объектов Student
         for (Sale sale : sales) {
