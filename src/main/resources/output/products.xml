@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Products>
+  <Product product="Клваиатура">
+    <seller>Мартемьян Лосев</seller>
+    <count>10</count>
+  </Product>
+  <Product product="Мышь">
+    <seller>Иван Иванов</seller>
+    <count>9</count>
+  </Product>
+  <Product product="Процессор">
+    <seller>Боб Пивной</seller>
+    <count>10</count>
+  </Product>
+  <Product product="Видеокарта">
+    <seller>Боб Пивной</seller>
+    <count>15</count>
+  </Product>
+  <Product product="Монитор">
+    <seller>Дражен Атанасевич</seller>
+    <count>6</count>
+  </Product>
+  <Product product="Коврик для мыши">
+    <seller>Дражен Атанасевич</seller>
+    <count>17</count>
+  </Product>
+  <Product product="Материнская плата">
+    <seller>Боб Пивной</seller>
+    <count>13</count>
+  </Product>
+  <Product product="Куллер">
+    <seller>Гарик Платонов</seller>
+    <count>8</count>
+  </Product>
+  <Product product="Оперативная память">
+    <seller>Гарик Платонов</seller>
+    <count>4</count>
+  </Product>
+  <Product product="Жесткий диск">
+    <seller>Боб Пивной</seller>
+    <count>13</count>
+  </Product>
+  <Product product="SSD">
+    <seller>Боб Пивной</seller>
+    <count>9</count>
+  </Product>
+  <Product product="Термопаста">
+    <seller>Боб Пивной</seller>
+    <count>15</count>
+  </Product>
+  <Product product="Блок питания">
+    <seller>- -</seller>
+    <count>0</count>
+  </Product>
+  <Product product="Корпус">
+    <seller>Дражен Атанасевич</seller>
+    <count>17</count>
+  </Product>
+  <Product product="Сетевой фильтр">
+    <seller>Иван Иванов</seller>
+    <count>11</count>
+  </Product>
+  <Product product="Микрофон">
+    <seller>Боб Пивной</seller>
+    <count>9</count>
+  </Product>
+  <Product product="Колонки">
+    <seller>Иван Иванов</seller>
+    <count>11</count>
+  </Product>
+  <Product product="Ноутбук">
+    <seller>Мартемьян Лосев</seller>
+    <count>10</count>
+  </Product>
+</Products>
